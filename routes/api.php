@@ -17,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+// JWT
+Route::post('auth/register', '\App\Http\Controllers\ApiTestController@register');
+Route::post('auth/login', '\App\Http\Controllers\ApiTestController@login');
+Route::group(['middleware' => 'jwt.auth'], function () {
+    Route::get('user-info', '\App\Http\Controllers\ApiTestController@getUserInfo');
+});
